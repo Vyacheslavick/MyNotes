@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateActivity">
+
+    <EditText
+        android:textColor="#000"
+        android:gravity="center"
+        android:id="@+id/note_theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Theme"
+        android:textSize="28sp" />
+
+    <EditText
+        android:textColor="#000"
+        android:id="@+id/note_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Text"
+        android:textSize="20sp"
+        android:paddingLeft="24dp"
+        android:paddingRight="8dp"/>
+
+    <EditText
+        android:id="@+id/note_importance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#000"
+        android:gravity="right"
+        android:paddingRight="12sp"
+        android:hint="№ of code" />
+
+</LinearLayout>
