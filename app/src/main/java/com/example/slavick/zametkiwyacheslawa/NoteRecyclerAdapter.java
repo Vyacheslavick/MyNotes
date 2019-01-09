@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
         return notes.size();
     }
 
-    public void addItem(Note note){
+    public void addItem(Note note) {
         notes.add(0, note);
         notifyItemInserted(0);
     }
@@ -65,9 +66,20 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
                     onNoteItemClick.onClick(getAdapterPosition());
                 }
             });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    onNoteItemClick.onLongClick(getAdapterPosition());
+                    return true;
+                }
+            });
         }
     }
-    public interface OnNoteItemClick{
+
+
+
+    public interface OnNoteItemClick {
         void onClick(int position);
+        void onLongClick(int position);
     }
 }

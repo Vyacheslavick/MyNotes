@@ -1,39 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F79F52"
+    android:orientation="vertical"
     tools:context=".CreateActivity">
 
     <EditText
-        android:textColor="#000"
-        android:gravity="center"
-        android:id="@+id/note_theme"
+        android:id="@+id/note_theme_wright"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:hint="Theme"
+        android:textColor="#000"
         android:textSize="28sp" />
 
     <EditText
-        android:textColor="#000"
-        android:id="@+id/note_text"
+        android:id="@+id/note_text_wright"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Text"
-        android:textSize="20sp"
         android:paddingLeft="24dp"
-        android:paddingRight="8dp"/>
+        android:paddingRight="8dp"
+        android:textColor="#000"
+        android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/note_importance"
+        android:id="@+id/note_importance_wright"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="#000"
         android:gravity="right"
+        android:hint="№ of code"
+        android:inputType="number"
         android:paddingRight="12sp"
-        android:hint="№ of code" />
+        android:textColor="#000"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Hrs"
+            android:inputType="number"
+            android:textColor="#229"
+            android:textSize="28sp" />
+
+        <EditText
+            android:id="@+id/minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Min"
+            android:inputType="number"
+            android:textColor="#229"
+            android:textSize="28sp" />
+
+        <Button
+            android:id="@+id/create_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="60dp"
+            android:background="#528"
+            android:gravity="right"
+            android:padding="12dp"
+            android:text="Create Note"
+            android:textColor="#989" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -3,26 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:background="#F79F52"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_note"
-        android:focusable="true"
+        android:layout_weight="10"
         android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"/>
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        tools:listitem="@layout/item_note" />
 
     <Button
-        android:id="@+id/create_note"
-        android:layout_height="wrap_content"
+        android:id="@+id/add_note"
         android:layout_width="match_parent"
-        android:text="Create new note)"
-        android:background="#FFDAB9"/>
-
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#FFDAB9"
+        android:text="Create new note)" />
 
 
 </LinearLayout>
