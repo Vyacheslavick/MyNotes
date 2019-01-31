@@ -1,6 +1,7 @@
 package com.example.slavick.zametkiwyacheslawa;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -48,6 +49,12 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
         notes.add(0, note);
         notifyItemInserted(0);
     }
+    public void changeItem(Note note, int position){
+        notes.remove(position);
+        notifyItemRemoved(position);
+        addItem(note);
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

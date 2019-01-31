@@ -1,6 +1,8 @@
 package com.example.slavick.zametkiwyacheslawa;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -19,35 +21,40 @@ public class MainActivity extends AppCompatActivity implements NoteRecyclerAdapt
     Note note;
     NoteRecyclerAdapter adapter;
     Button addNote;
-    List<Note> notes;
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        note = data.getParcelableExtra("key");
-        adapter.addItem(note);
-    }
+
+    volatile List<Note> notes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         notes = new ArrayList<>();
-        if (notes.size() == 0) {
-            notes.add(new Note("Hello", "you in my pleasantly notes, fucking assholekfvrmfrkvmkefvkrfvklefkvnjnjdnvjnsvlkvndsvnsfndvskvmlksnvnjlnskdnndvj", "1488228"));
-            notes.add(new Note("Hello", "you in my pleasantly notes, fucking assholekfvrmfrkvmkefvkrfvklefkvnjnjdnvjnsvlkvndsvnsfndvskvmlksnvnjlnskdnndvj", "1488229"));
-            notes.add(new Note("Hello", "you in my pleasantly notes, fucking assholekfvrmfrkvmkefvkrfvklefkvnjnjdnvjnsvlkvndsvnsfndvskvmlksnvnjlnskdnndvj", "1488230"));
-            notes.add(new Note("Hello", "you in my pleasantly notes, fucking assholekfvrmfrkvmkefvkrfvklefkvnjnjdnvjnsvlkvndsvnsfndvskvmlksnvnjlnskdnndvj", "1488231"));
-        }
+        notes = summonDao().getAll();
+
         final RecyclerView list = findViewById(R.id.list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         list.setLayoutManager(layoutManager);
         adapter = new NoteRecyclerAdapter(notes, this, this);
         list.setAdapter(adapter);
+
         addNote = findViewById(R.id.add_note);
+
+        if (getIntent().getParcelableExtra("key") != null) {
+            note = getIntent().getParcelableExtra("key");
+            summonDao().insert(note);
+            adapter.addItem(note);
+        } else if (getIntent().getParcelableExtra("watch") != null) {
+            SharedPreferences sp = getSharedPreferences("PositionName", Context.MODE_PRIVATE);
+            int count = sp.getInt("position", 0);
+            note = getIntent().getParcelableExtra("watch");
+            adapter.changeItem(note, count);
+            summonDao().update(note);
+        }
+
         addNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(MainActivity.this, CreateActivity.class);
                 startActivityForResult(intent, 0);
             }
@@ -57,15 +64,25 @@ public class MainActivity extends AppCompatActivity implements NoteRecyclerAdapt
 
     @Override
     public void onClick(int position) {
+        SharedPreferences sp = getSharedPreferences("PositionName", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("position", position);
+        editor.apply();
         Intent intent = new Intent(MainActivity.this, CreateActivity.class);
         intent.putExtra("watch", notes.get(position));
-        startActivityForResult(intent, 0);
+        startActivity(intent);
     }
 
     @Override
-    public void onLongClick(int position) {
+    public void onLongClick(final int position) {
+        summonDao().delete(notes.get(position));
         notes.remove(position);
         adapter.notifyItemRemoved(position);
+    }
+
+    public NoteDao summonDao(){
+        NoteDatabase database = App.getInstance().getDatabase();
+        return database.noteDao();
     }
 
     @Override
